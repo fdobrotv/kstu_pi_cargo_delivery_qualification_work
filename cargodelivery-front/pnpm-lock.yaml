@@ -50,6 +50,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.2.0(react@18.2.0)
+  'react-query:':
+    specifier: 'link:@tanstack/react-query:'
+    version: 'link:@tanstack/react-query:'
   react-query:^4.35.3:
     specifier: link:@tanstack/react-query:^4.35.3
     version: link:@tanstack/react-query:^4.35.3
@@ -59,10 +62,10 @@ dependencies:
 
 devDependencies:
   '@types/node':
-    specifier: ^20
+    specifier: ^20.10.4
     version: 20.10.4
   '@types/react':
-    specifier: ^18
+    specifier: ^18.2.42
     version: 18.2.42
   '@types/react-dom':
     specifier: ^18
@@ -83,7 +86,7 @@ devDependencies:
     specifier: ^3.3.0
     version: 3.3.6
   typescript:
-    specifier: ^5
+    specifier: ^5.3.3
     version: 5.3.3
 
 packages:

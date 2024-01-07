@@ -69,8 +69,8 @@ const Orders = () => {
                 Cell: ({ cell }) =>  {
                     let user = cell.getValue<User>();
                     return <Text>
-                      {"Пользователь: " + user.firstName + " " + user.lastName + " " + 
-                      user.middleName + " " + user.role } 
+                      {"Пользователь: " + user?.firstName + " " + user?.lastName + " " + 
+                      user?.middleName + " " + user?.role } 
                     </Text>
                 },
                 Edit: ({ cell, column, row, table }) => {

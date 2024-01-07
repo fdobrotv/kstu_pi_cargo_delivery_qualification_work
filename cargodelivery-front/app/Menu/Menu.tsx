@@ -39,17 +39,20 @@ const user = {
 
 const tabs = [
   'Orders',
+  'WorkSlots',
+  'Incidents',
+  'Refuels',
+  'FuelStations',
+  'Ways',
+  'Roads',
+  'Settlements',
+  'Drivers',
   'Users',
-  'Transfers',
-  'Hotels',
-  'Rooms',
-  'FoodOptions',
+  'Roles',
   'Cars',
   'CarMarks',
   'CarModels',
 ];
-
-
 
 export function HeaderTabs() {
   const theme = useMantineTheme();

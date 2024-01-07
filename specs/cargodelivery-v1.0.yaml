@@ -1674,7 +1674,7 @@ components:
         - description
         - departureSettlementId
         - destinationSettlementId
-        - roads
+        - roadIds
       properties:
         name:
           type: string
@@ -1700,6 +1700,7 @@ components:
         - description
         - departureSettlement
         - destinationSettlement
+        - roads
       properties:
         id:
           type: string
@@ -1872,8 +1873,8 @@ components:
       required:
         - startedAt
         - finishedAt
-        - driverId
         - carId
+        - driverId
         - startCoordinates
         - endCoordinates
       properties:
@@ -1883,10 +1884,10 @@ components:
         finishedAt:
           type: string
           format: date-time
-        driverId:
+        carId:
           type: string
           format: uuid
-        carId:
+        driverId:
           type: string
           format: uuid
         startCoordinates:
@@ -1899,8 +1900,8 @@ components:
         - id
         - startedAt
         - finishedAt
-        - driver
         - car
+        - driver
         - startCoordinates
         - endCoordinates
       properties:
@@ -1913,10 +1914,10 @@ components:
         finishedAt:
           type: string
           format: date-time
-        driver:
-          $ref: "#/components/schemas/Driver"
         car:
           $ref: "#/components/schemas/Car"
+        driver:
+          $ref: "#/components/schemas/Driver"
         startCoordinates:
           $ref: "#/components/schemas/Point"
         endCoordinates:

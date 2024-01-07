@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
     MRT_EditActionButtons,
     MantineReactTable,
@@ -14,6 +14,7 @@ import {
     ActionIcon,
     Button,
     Flex,
+    Select,
     Stack,
     Text,
     Title,
@@ -29,14 +30,16 @@ import {
     useQueryClient,
 } from '@tanstack/react-query';
 import {
+    Role,
     User,
     UserIn,
 } from "@/generated";
 
 import { UUID } from 'crypto';
 import { create, deleteById, getUsers } from './fetch';
-import { validateRequired, validateRequiredDate } from '../Validators/validation';
+import { validateRequired, validateRequiredDateInFuture } from '../Validators/validation';
 import HeaderTabs from '../Menu/Menu';
+import { getRoles } from '../Roles/fetch';
 
 const Users = () => {
     const [validationErrors, setValidationErrors] = useState<
@@ -122,6 +125,59 @@ const Users = () => {
                         }),
                     //optionally add validation checking for onBlur or onChange
                 },
+                Edit: ({ cell, column, row, table }) => {
+                    interface Item {
+                        value: string; 
+                        label: string; 
+                    }
+
+                    const [data, setData] = useState<Array<Item>>([])
+                    const [isLoading, setLoading] = useState(true)
+                    const [selectedId, setSelectedId] = useState<UUID>()
+
+                    useEffect(() => {
+                        getRoles()
+                        .then((response: Array<Role>) => {
+                            return response.map( (roleModel: Role) => {
+                                const items = {
+                                    value: roleModel.id,
+                                    label: roleModel.name
+                                }
+                                return items;
+                            });
+                        })
+                        .then((data) => {
+                            setData(data)
+                            setLoading(false)
+                        })
+                      }, [])
+
+                    const onBlur = (event) => {
+                        console.log("onBlur event type: " + typeof event);
+                        console.log("onBlur event: " + event);
+                        row._valuesCache[column.id] = selectedId
+                        if (isCreatingUser) {
+                            table.setCreatingRow(row);
+                        } else if (isUpdatingUser) {
+                            table.setEditingRow(row);
+                        }
+                    };
+
+                    if (isLoading) return <p>Loading...</p>
+                    if (!data) return <p>No role models data</p>
+                
+                    const onChange = (event) => {
+                        console.log("handleChange");
+                        console.log(event);
+                        setSelectedId(event);
+                    }
+
+                    return <Select onChange={onChange} onBlur={onBlur}
+                        label="Role"
+                        placeholder="Pick value"
+                        data={data}
+                    />;
+                },
             },
             {
                 accessorKey: 'createdAt',
@@ -141,9 +197,12 @@ const Users = () => {
                 Cell: ({ cell }) =>  {
                     let date = cell.getValue<Date>();
                     return <Text>
-                      {date.toISOString()}
+                      {date?.toISOString()}
                     </Text>
                     },
+                Edit: () => {
+                    return <div hidden = {true}></div>;
+                },
             },
             {
                 accessorKey: 'phone',

@@ -22,7 +22,7 @@ import javax.annotation.Generated;
  * WorkSlotIn
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-01-07T13:43:58.566610636+03:00[Europe/Moscow]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-01-07T20:25:02.083454+02:00[Europe/Sofia]")
 public class WorkSlotIn {
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -31,9 +31,9 @@ public class WorkSlotIn {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime finishedAt;
 
-  private UUID driverId;
-
   private UUID carId;
+
+  private UUID driverId;
 
   private Point startCoordinates;
 
@@ -46,11 +46,11 @@ public class WorkSlotIn {
   /**
    * Constructor with only required parameters
    */
-  public WorkSlotIn(OffsetDateTime startedAt, OffsetDateTime finishedAt, UUID driverId, UUID carId, Point startCoordinates, Point endCoordinates) {
+  public WorkSlotIn(OffsetDateTime startedAt, OffsetDateTime finishedAt, UUID carId, UUID driverId, Point startCoordinates, Point endCoordinates) {
     this.startedAt = startedAt;
     this.finishedAt = finishedAt;
-    this.driverId = driverId;
     this.carId = carId;
+    this.driverId = driverId;
     this.startCoordinates = startCoordinates;
     this.endCoordinates = endCoordinates;
   }
@@ -95,26 +95,6 @@ public class WorkSlotIn {
     this.finishedAt = finishedAt;
   }
 
-  public WorkSlotIn driverId(UUID driverId) {
-    this.driverId = driverId;
-    return this;
-  }
-
-  /**
-   * Get driverId
-   * @return driverId
-  */
-  @NotNull @Valid 
-  @Schema(name = "driverId", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("driverId")
-  public UUID getDriverId() {
-    return driverId;
-  }
-
-  public void setDriverId(UUID driverId) {
-    this.driverId = driverId;
-  }
-
   public WorkSlotIn carId(UUID carId) {
     this.carId = carId;
     return this;
@@ -133,6 +113,26 @@ public class WorkSlotIn {
 
   public void setCarId(UUID carId) {
     this.carId = carId;
+  }
+
+  public WorkSlotIn driverId(UUID driverId) {
+    this.driverId = driverId;
+    return this;
+  }
+
+  /**
+   * Get driverId
+   * @return driverId
+  */
+  @NotNull @Valid 
+  @Schema(name = "driverId", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("driverId")
+  public UUID getDriverId() {
+    return driverId;
+  }
+
+  public void setDriverId(UUID driverId) {
+    this.driverId = driverId;
   }
 
   public WorkSlotIn startCoordinates(Point startCoordinates) {
@@ -186,15 +186,15 @@ public class WorkSlotIn {
     WorkSlotIn workSlotIn = (WorkSlotIn) o;
     return Objects.equals(this.startedAt, workSlotIn.startedAt) &&
         Objects.equals(this.finishedAt, workSlotIn.finishedAt) &&
-        Objects.equals(this.driverId, workSlotIn.driverId) &&
         Objects.equals(this.carId, workSlotIn.carId) &&
+        Objects.equals(this.driverId, workSlotIn.driverId) &&
         Objects.equals(this.startCoordinates, workSlotIn.startCoordinates) &&
         Objects.equals(this.endCoordinates, workSlotIn.endCoordinates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startedAt, finishedAt, driverId, carId, startCoordinates, endCoordinates);
+    return Objects.hash(startedAt, finishedAt, carId, driverId, startCoordinates, endCoordinates);
   }
 
   @Override
@@ -203,8 +203,8 @@ public class WorkSlotIn {
     sb.append("class WorkSlotIn {\n");
     sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
     sb.append("    finishedAt: ").append(toIndentedString(finishedAt)).append("\n");
-    sb.append("    driverId: ").append(toIndentedString(driverId)).append("\n");
     sb.append("    carId: ").append(toIndentedString(carId)).append("\n");
+    sb.append("    driverId: ").append(toIndentedString(driverId)).append("\n");
     sb.append("    startCoordinates: ").append(toIndentedString(startCoordinates)).append("\n");
     sb.append("    endCoordinates: ").append(toIndentedString(endCoordinates)).append("\n");
     sb.append("}");

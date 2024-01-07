@@ -47,7 +47,7 @@ class ControllerTests extends BaseIntegrationTest {
 
         //55.5009042, 43.5770082
         Point pointOfLukoil = createPoint(BigDecimal.valueOf(55.5009042), BigDecimal.valueOf(43.5770082));
-        FuelStation fuelStation = createFuelStation("Лукойл", "7ми местная заправка для грузовых машин с кафе", pointOfLukoil);
+        FuelStation fuelStation = createFuelStation("Лукойл", "7-ми местная заправка для грузовых машин с кафе", pointOfLukoil);
 
         Refuel refuel = createRefuel(BigDecimal.valueOf(16500), now(), fuelStation, car, driver);
 

@@ -43,13 +43,13 @@ export interface WorkSlotIn {
      * @type {string}
      * @memberof WorkSlotIn
      */
-    driverId: string;
+    carId: string;
     /**
      * 
      * @type {string}
      * @memberof WorkSlotIn
      */
-    carId: string;
+    driverId: string;
     /**
      * 
      * @type {Point}
@@ -71,8 +71,8 @@ export function instanceOfWorkSlotIn(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "startedAt" in value;
     isInstance = isInstance && "finishedAt" in value;
-    isInstance = isInstance && "driverId" in value;
     isInstance = isInstance && "carId" in value;
+    isInstance = isInstance && "driverId" in value;
     isInstance = isInstance && "startCoordinates" in value;
     isInstance = isInstance && "endCoordinates" in value;
 
@@ -91,8 +91,8 @@ export function WorkSlotInFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         
         'startedAt': (new Date(json['startedAt'])),
         'finishedAt': (new Date(json['finishedAt'])),
-        'driverId': json['driverId'],
         'carId': json['carId'],
+        'driverId': json['driverId'],
         'startCoordinates': PointFromJSON(json['startCoordinates']),
         'endCoordinates': PointFromJSON(json['endCoordinates']),
     };
@@ -109,8 +109,8 @@ export function WorkSlotInToJSON(value?: WorkSlotIn | null): any {
         
         'startedAt': (value.startedAt.toISOString()),
         'finishedAt': (value.finishedAt.toISOString()),
-        'driverId': value.driverId,
         'carId': value.carId,
+        'driverId': value.driverId,
         'startCoordinates': PointToJSON(value.startCoordinates),
         'endCoordinates': PointToJSON(value.endCoordinates),
     };

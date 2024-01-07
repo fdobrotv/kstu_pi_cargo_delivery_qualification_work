@@ -24,7 +24,7 @@ import javax.annotation.Generated;
  * Way
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-01-07T13:43:58.566610636+03:00[Europe/Moscow]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-01-07T20:25:02.083454+02:00[Europe/Sofia]")
 public class Way {
 
   private UUID id;
@@ -38,7 +38,7 @@ public class Way {
   private Settlement destinationSettlement;
 
   @Valid
-  private List<@Valid Road> roads;
+  private List<@Valid Road> roads = new ArrayList<>();
 
   public Way() {
     super();
@@ -47,12 +47,13 @@ public class Way {
   /**
    * Constructor with only required parameters
    */
-  public Way(UUID id, String name, String description, Settlement departureSettlement, Settlement destinationSettlement) {
+  public Way(UUID id, String name, String description, Settlement departureSettlement, Settlement destinationSettlement, List<@Valid Road> roads) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.departureSettlement = departureSettlement;
     this.destinationSettlement = destinationSettlement;
+    this.roads = roads;
   }
 
   public Way id(UUID id) {
@@ -172,8 +173,8 @@ public class Way {
    * Get roads
    * @return roads
   */
-  @Valid 
-  @Schema(name = "roads", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull @Valid 
+  @Schema(name = "roads", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("roads")
   public List<@Valid Road> getRoads() {
     return roads;

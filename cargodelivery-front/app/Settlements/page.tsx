@@ -17,7 +17,6 @@ import {
     Text,
     Title,
     Tooltip,
-    Checkbox,
     TextInput
 } from '@mantine/core';
 import { ModalsProvider, modals } from '@mantine/modals';
@@ -87,76 +86,22 @@ const Settlements = () => {
                       {point?.latitude + " " + point?.longitude}
                     </Text>
                     },
-                // Edit: ({ cell, column, row, table }) => {
-                //     interface Item {
-                //         value: string; 
-                //         label: string; 
-                //     }
-
-                //     const [data, setData] = useState<Array<Item>>([])
-                //     const [isLoading, setLoading] = useState(true)
-                //     const [selectedId, setSelectedId] = useState<UUID>()
-
-                //     useEffect(() => {
-                //         getPoints()
-                //         .then((response: Array<Point>) => {
-                //             return response.map( (point: Point) => {
-                //                 const items = {
-                //                     value: point.id,
-                //                     label: point.mark + ' ' + point.model + ' ' + point.plateNumber
-                //                 }
-                //                 return items;
-                //             });
-                //         })
-                //         .then((data) => {
-                //             setData(data)
-                //             setLoading(false)
-                //         })
-                //     }, [])
-
-                //     const onBlur = (event) => {
-                //         const hTMLInputElement: HTMLInputElement = event.target;
-                //         console.log(hTMLInputElement);
-
-                //         row._valuesCache[column.id] = selectedId;
-                //         if (isCreatingSettlement) {
-                //             table.setCreatingRow(row);
-                //         } else if (isUpdatingSettlement) {
-                //             table.setEditingRow(row);
-                //         }
-                //     };
-
-                //     if (isLoading) return <p>Loading...</p>
-                //     if (!data) return <p>No points data</p>
-
-                //     const onChange = (event) => {
-                //         console.log("handleChange");
-                //         console.log(event);
-                //         setSelectedId(event);
-                //     }
-
-                //     return <Select onChange={onChange} onBlur={onBlur}
-                //         label="Point"
-                //         placeholder="Pick value"
-                //         data={data}
-                //     />;
-                // },
                 Edit: ({ cell, column, row, table }) => {
-                    interface Point {
-                        latitude: number; 
-                        longitude: number; 
-                    }
-
-                    const [data, setData] = useState<Point>()
-                    const [isLoading, setLoading] = useState(true)
-                    const [latitude, setLatitude] = useState<number>()
-                    const [longitude, setLongitude] = useState<number>()
+                    const [latitude, setLatitude] = useState<number>(0)
+                    const [longitude, setLongitude] = useState<number>(0)
 
                     const onBlur = (event) => {
                         const hTMLInputElement: HTMLInputElement = event.target;
                         console.log(hTMLInputElement);
 
-                        row._valuesCache[column.id] = hTMLInputElement.checked;
+                        const point: Point = {
+                            latitude,
+                            longitude
+                        }
+
+                        row._valuesCache[column.id] = point;
+                        console.log("Coordinates modification");
+                        console.log(row);
                         if (isCreatingSettlement) {
                             table.setCreatingRow(row);
                         } else if (isUpdatingSettlement) {
@@ -164,19 +109,16 @@ const Settlements = () => {
                         }
                     };
 
-                    if (isLoading) return <p>Loading...</p>
-                    if (!data) return <p>No points data</p>
-
                     const onLatitudeChange = (event) => {
                         console.log("handleChange");
                         console.log(event);
-                        setLatitude(event);
+                        setLatitude(event.target.value);
                     }
 
                     const onLongitudeChange = (event) => {
                         console.log("handleChange");
                         console.log(event);
-                        setLongitude(event);
+                        setLongitude(event.target.value);
                     }
 
                     return <>
@@ -203,47 +145,6 @@ const Settlements = () => {
                     //optionally add validation checking for onBlur or onChange
                 },
             },
-            // {
-            //     accessorKey: 'isGuideIncluded',
-            //     header: 'Is Guide Included?',
-            //     mantineEditTextInputProps: {
-            //         type: 'checkbox',
-            //         required: true,
-            //         error: validationErrors?.name,
-            //         //remove any previous validation errors when settlement focuses on the input
-            //         onFocus: () =>
-            //             setValidationErrors({
-            //                 ...validationErrors,
-            //                 name: undefined,
-            //             }),
-            //         //optionally add validation checking for onBlur or onChange
-            //     },
-            //     Cell: ({ cell }) =>  {
-            //         let checked = cell.getValue<boolean>();
-            //         return <Checkbox disabled checked = {checked}
-            //             placeholder="Decide"
-            //         />;
-            //         }
-            //       ,
-            //     Edit: ({ cell, column, row, table }) => {
-            //         const onBlur = (event) => {
-            //             const hTMLInputElement: HTMLInputElement = event.target;
-            //             console.log(hTMLInputElement);
-
-            //             row._valuesCache[column.id] = hTMLInputElement.checked;
-            //             if (isCreatingSettlement) {
-            //                 table.setCreatingRow(row);
-            //             } else if (isUpdatingSettlement) {
-            //                 table.setEditingRow(row);
-            //             }
-            //         };
-
-            //         return <Checkbox onBlur={onBlur}
-            //             label="Is Guide Included?"
-            //             placeholder="Decide"
-            //         />;
-            //     },
-            // },
         ],
         [validationErrors],
     );
@@ -274,6 +175,8 @@ const Settlements = () => {
             name : values.name,
             coordinates : values.coordinates,
         }
+        console.log("handleCreateSettlement");
+        console.log("settlementIn " + settlementIn);
         const newValidationErrors = validateSettlementIn(settlementIn);
         if (Object.values(newValidationErrors).some((error) => error)) {
             setValidationErrors(newValidationErrors);
@@ -403,6 +306,8 @@ function useCreateSettlement() {
         },
         //client side optimistic update
         onMutate: (newSettlementInfo: SettlementIn) => {
+            console.log("useCreateSettlement onMutate");
+            console.log("onMutate newSettlementInfo: " + newSettlementInfo);
             queryClient.setQueryData(
                 ['settlements'],
                 (prevSettlements: any) =>
@@ -410,7 +315,6 @@ function useCreateSettlement() {
                         ...prevSettlements,
                         {
                             ...newSettlementInfo,
-                            // id: newSettlementInfo.id,
                         },
                     ] as SettlementIn[],
             );
@@ -418,6 +322,36 @@ function useCreateSettlement() {
         onSettled: () => queryClient.invalidateQueries({ queryKey: ['settlements'] }),
     });
 }
+
+// function useCreateCar(): UseMutationResult<Car, Error, CarIn, void> {
+//     const queryClient = useQueryClient();
+//     return useMutation({
+//         mutationFn: async (carIn: CarIn) => {
+//             console.log("useCreateCar");
+//             console.log("carIn: " + carIn);
+//             let createCarRequest: CreateCarRequest = {carIn: carIn}
+//             let createdCar: Promise<Car> = carsApi.createCar(createCarRequest);
+//             return Promise.resolve(createdCar);
+//         },
+//         //client side optimistic update
+//         onMutate: (newCarInfo: CarIn) => {
+//             console.log("useCreateCar onMutate");
+//             console.log("onMutate newCarInfo: " + newCarInfo);
+//             queryClient.setQueryData(
+//                 ['cars'],
+//                 (prevCars: any) =>
+//                     [
+//                         ...prevCars,
+//                         {
+//                             ...newCarInfo,
+//                             id: (Math.random() + 1).toString(36).substring(7),
+//                         },
+//                     ] as Car[],
+//             );
+//         },
+//         onSettled: () => queryClient.invalidateQueries({ queryKey: ['cars'] }), //refetch car marks after mutation, disabled for demo
+//     });
+// }
 
 //READ hook (get settlements from api)
 export function useGetSettlements() {

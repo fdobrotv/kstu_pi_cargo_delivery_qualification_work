@@ -58,16 +58,16 @@ export interface WorkSlot {
     finishedAt: Date;
     /**
      * 
-     * @type {Driver}
-     * @memberof WorkSlot
-     */
-    driver: Driver;
-    /**
-     * 
      * @type {Car}
      * @memberof WorkSlot
      */
     car: Car;
+    /**
+     * 
+     * @type {Driver}
+     * @memberof WorkSlot
+     */
+    driver: Driver;
     /**
      * 
      * @type {Point}
@@ -90,8 +90,8 @@ export function instanceOfWorkSlot(value: object): boolean {
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "startedAt" in value;
     isInstance = isInstance && "finishedAt" in value;
-    isInstance = isInstance && "driver" in value;
     isInstance = isInstance && "car" in value;
+    isInstance = isInstance && "driver" in value;
     isInstance = isInstance && "startCoordinates" in value;
     isInstance = isInstance && "endCoordinates" in value;
 
@@ -111,8 +111,8 @@ export function WorkSlotFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'id': json['id'],
         'startedAt': (new Date(json['startedAt'])),
         'finishedAt': (new Date(json['finishedAt'])),
-        'driver': DriverFromJSON(json['driver']),
         'car': CarFromJSON(json['car']),
+        'driver': DriverFromJSON(json['driver']),
         'startCoordinates': PointFromJSON(json['startCoordinates']),
         'endCoordinates': PointFromJSON(json['endCoordinates']),
     };
@@ -130,8 +130,8 @@ export function WorkSlotToJSON(value?: WorkSlot | null): any {
         'id': value.id,
         'startedAt': (value.startedAt.toISOString()),
         'finishedAt': (value.finishedAt.toISOString()),
-        'driver': DriverToJSON(value.driver),
         'car': CarToJSON(value.car),
+        'driver': DriverToJSON(value.driver),
         'startCoordinates': PointToJSON(value.startCoordinates),
         'endCoordinates': PointToJSON(value.endCoordinates),
     };

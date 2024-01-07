@@ -48,7 +48,7 @@ export interface WayIn {
      * @type {Array<string>}
      * @memberof WayIn
      */
-    roadIds?: Array<string>;
+    roadIds: Array<string>;
 }
 
 /**
@@ -60,6 +60,7 @@ export function instanceOfWayIn(value: object): boolean {
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "departureSettlementId" in value;
     isInstance = isInstance && "destinationSettlementId" in value;
+    isInstance = isInstance && "roadIds" in value;
 
     return isInstance;
 }
@@ -78,7 +79,7 @@ export function WayInFromJSONTyped(json: any, ignoreDiscriminator: boolean): Way
         'description': json['description'],
         'departureSettlementId': json['departureSettlementId'],
         'destinationSettlementId': json['destinationSettlementId'],
-        'roadIds': !exists(json, 'roadIds') ? undefined : json['roadIds'],
+        'roadIds': json['roadIds'],
     };
 }
 

@@ -24,7 +24,7 @@ import javax.annotation.Generated;
  * WorkSlot
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-01-07T13:43:58.566610636+03:00[Europe/Moscow]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-01-07T20:25:02.083454+02:00[Europe/Sofia]")
 public class WorkSlot {
 
   private UUID id;
@@ -35,9 +35,9 @@ public class WorkSlot {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime finishedAt;
 
-  private Driver driver;
-
   private Car car;
+
+  private Driver driver;
 
   private Point startCoordinates;
 
@@ -50,12 +50,12 @@ public class WorkSlot {
   /**
    * Constructor with only required parameters
    */
-  public WorkSlot(UUID id, OffsetDateTime startedAt, OffsetDateTime finishedAt, Driver driver, Car car, Point startCoordinates, Point endCoordinates) {
+  public WorkSlot(UUID id, OffsetDateTime startedAt, OffsetDateTime finishedAt, Car car, Driver driver, Point startCoordinates, Point endCoordinates) {
     this.id = id;
     this.startedAt = startedAt;
     this.finishedAt = finishedAt;
-    this.driver = driver;
     this.car = car;
+    this.driver = driver;
     this.startCoordinates = startCoordinates;
     this.endCoordinates = endCoordinates;
   }
@@ -120,26 +120,6 @@ public class WorkSlot {
     this.finishedAt = finishedAt;
   }
 
-  public WorkSlot driver(Driver driver) {
-    this.driver = driver;
-    return this;
-  }
-
-  /**
-   * Get driver
-   * @return driver
-  */
-  @NotNull @Valid 
-  @Schema(name = "driver", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("driver")
-  public Driver getDriver() {
-    return driver;
-  }
-
-  public void setDriver(Driver driver) {
-    this.driver = driver;
-  }
-
   public WorkSlot car(Car car) {
     this.car = car;
     return this;
@@ -158,6 +138,26 @@ public class WorkSlot {
 
   public void setCar(Car car) {
     this.car = car;
+  }
+
+  public WorkSlot driver(Driver driver) {
+    this.driver = driver;
+    return this;
+  }
+
+  /**
+   * Get driver
+   * @return driver
+  */
+  @NotNull @Valid 
+  @Schema(name = "driver", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("driver")
+  public Driver getDriver() {
+    return driver;
+  }
+
+  public void setDriver(Driver driver) {
+    this.driver = driver;
   }
 
   public WorkSlot startCoordinates(Point startCoordinates) {
@@ -212,15 +212,15 @@ public class WorkSlot {
     return Objects.equals(this.id, workSlot.id) &&
         Objects.equals(this.startedAt, workSlot.startedAt) &&
         Objects.equals(this.finishedAt, workSlot.finishedAt) &&
-        Objects.equals(this.driver, workSlot.driver) &&
         Objects.equals(this.car, workSlot.car) &&
+        Objects.equals(this.driver, workSlot.driver) &&
         Objects.equals(this.startCoordinates, workSlot.startCoordinates) &&
         Objects.equals(this.endCoordinates, workSlot.endCoordinates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, startedAt, finishedAt, driver, car, startCoordinates, endCoordinates);
+    return Objects.hash(id, startedAt, finishedAt, car, driver, startCoordinates, endCoordinates);
   }
 
   @Override
@@ -230,8 +230,8 @@ public class WorkSlot {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
     sb.append("    finishedAt: ").append(toIndentedString(finishedAt)).append("\n");
-    sb.append("    driver: ").append(toIndentedString(driver)).append("\n");
     sb.append("    car: ").append(toIndentedString(car)).append("\n");
+    sb.append("    driver: ").append(toIndentedString(driver)).append("\n");
     sb.append("    startCoordinates: ").append(toIndentedString(startCoordinates)).append("\n");
     sb.append("    endCoordinates: ").append(toIndentedString(endCoordinates)).append("\n");
     sb.append("}");

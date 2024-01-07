@@ -67,7 +67,7 @@ export interface Way {
      * @type {Array<Road>}
      * @memberof Way
      */
-    roads?: Array<Road>;
+    roads: Array<Road>;
 }
 
 /**
@@ -80,6 +80,7 @@ export function instanceOfWay(value: object): boolean {
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "departureSettlement" in value;
     isInstance = isInstance && "destinationSettlement" in value;
+    isInstance = isInstance && "roads" in value;
 
     return isInstance;
 }
@@ -99,7 +100,7 @@ export function WayFromJSONTyped(json: any, ignoreDiscriminator: boolean): Way {
         'description': json['description'],
         'departureSettlement': SettlementFromJSON(json['departureSettlement']),
         'destinationSettlement': SettlementFromJSON(json['destinationSettlement']),
-        'roads': !exists(json, 'roads') ? undefined : ((json['roads'] as Array<any>).map(RoadFromJSON)),
+        'roads': ((json['roads'] as Array<any>).map(RoadFromJSON)),
     };
 }
 
@@ -117,7 +118,7 @@ export function WayToJSON(value?: Way | null): any {
         'description': value.description,
         'departureSettlement': SettlementToJSON(value.departureSettlement),
         'destinationSettlement': SettlementToJSON(value.destinationSettlement),
-        'roads': value.roads === undefined ? undefined : ((value.roads as Array<any>).map(RoadToJSON)),
+        'roads': ((value.roads as Array<any>).map(RoadToJSON)),
     };
 }
 
