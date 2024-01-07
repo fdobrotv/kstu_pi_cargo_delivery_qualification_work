@@ -48,7 +48,7 @@ import { getCarModels } from '../CarModels/fetchModels';
 import { UUID } from 'crypto';
 import { validateRequired } from '../Validators/validation';
 import HeaderTabs from '../Menu/Menu';
-import { colorToText } from '../Tours/helper';
+import { colorToText } from '../Orders/helper';
 
 let configurationParameters: ConfigurationParameters =
 {basePath: "http://127.0.0.1:8080/v1"};

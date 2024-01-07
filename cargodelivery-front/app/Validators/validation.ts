@@ -1,3 +1,5 @@
+import { Point } from "@/generated";
+
 export const validateRequired = (value: string) => !!value.length;
 
 export const validateRequiredNumber = (value: number) => !!value;
@@ -13,3 +15,5 @@ export const validateRequiredDate = (value: Date) => {
     console.log("inFuture: " + inFuture);
     return inFuture;
 };
+
+export const validateRequiredPoint = (value: Point) => !!value.latitude && !!value.longitude;
