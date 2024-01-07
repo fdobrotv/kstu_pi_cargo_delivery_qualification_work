@@ -14,6 +14,7 @@ import {
     Button,
     Checkbox,
     Flex,
+    MultiSelect,
     Select,
     Stack,
     Text,
@@ -102,7 +103,7 @@ const Ways = () => {
                 Cell: ({ cell }) =>  {
                     let settlement = cell.getValue<Settlement>();
                     return <Text>
-                      {`${settlement.name}`} 
+                      {`${settlement?.name}`} 
                     </Text>
                 },
                 Edit: ({ cell, column, row, table }) => {
@@ -178,7 +179,7 @@ const Ways = () => {
                 Cell: ({ cell }) =>  {
                     let settlement = cell.getValue<Settlement>();
                     return <Text>
-                      {`${settlement.name}`} 
+                      {`${settlement?.name}`} 
                     </Text>
                 },
                 Edit: ({ cell, column, row, table }) => {
@@ -265,7 +266,7 @@ const Ways = () => {
 
                     const [data, setData] = useState<Array<Item>>([])
                     const [isLoading, setLoading] = useState(true)
-                    const [selectedId, setSelectedId] = useState<UUID>()
+                    const [selectedIds, setSelectedIds] = useState<UUID[]>()
 
                     useEffect(() => {
                         getRoads()
@@ -286,9 +287,10 @@ const Ways = () => {
 
                     const onBlur = (event) => {
                         const hTMLInputElement: HTMLInputElement = event.target;
+                        console.log("roads onBlur");
                         console.log(hTMLInputElement);
 
-                        row._valuesCache[column.id] = selectedId;
+                        row._valuesCache[column.id] = selectedIds;
                         if (isCreatingWay) {
                             table.setCreatingRow(row);
                         } else if (isCreatingWay) {
@@ -302,12 +304,14 @@ const Ways = () => {
                     const onChange = (event) => {
                         console.log("handleChange");
                         console.log(event);
-                        setSelectedId(event);
+                        setSelectedIds(event);
                     }
 
-                    return <Select onChange={onChange} onBlur={onBlur}
-                        label="Road multi select"
+                    return <MultiSelect onChange={onChange} onBlur={onBlur}
+                        label="Выбор подмножества дорог"
                         placeholder="Pick values"
+                        searchable
+                        nothingFound="Дорога не найдена"
                         data={data}
                     />;
                 },
@@ -353,9 +357,9 @@ const Ways = () => {
         let wayIn: WayIn = {
             name : values.name,
             description : values.description,
-            departureSettlementId : values.departureSettlementId,
-            destinationSettlementId : values.destinationSettlementId,
-            roadIds : values.roadIds,
+            departureSettlementId : values.departureSettlement,
+            destinationSettlementId : values.destinationSettlement,
+            roadIds : values.roads,
         }
         console.log("handleCreateWay");
         console.log(wayIn);
@@ -581,6 +585,8 @@ const WaysWithProviders = () => (
 export default WaysWithProviders;
 
 function validateWay(way: Way) {
+    console.log("validateWay")
+    console.log(way)
     return {
         name: !validateRequired(way.name)
         ? 'Name is Required'

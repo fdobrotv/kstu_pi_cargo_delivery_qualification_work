@@ -43,7 +43,7 @@ class ControllerTests extends BaseIntegrationTest {
         RoadIn roadIn = getRoadIn("Москва - Казань", "Новая дорога через М-12", gpxFileName);
         Road road = createRoad(roadIn);
 
-        Way way = createWay("Москва - Казань", "Новая дорога через М-12", moscowSettlement, kazanSettlement, List.of(road));
+        Way way = createWay("Москва - Казань", "Новый путь через М-12", moscowSettlement, kazanSettlement, List.of(road));
 
         //55.5009042, 43.5770082
         Point pointOfLukoil = createPoint(BigDecimal.valueOf(55.5009042), BigDecimal.valueOf(43.5770082));

@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from 'react';
+import { FormEvent, FormEventHandler, useMemo, useState } from 'react';
 import {
     MRT_EditActionButtons,
     MantineReactTable,
@@ -8,19 +8,20 @@ import {
     type MRT_Row,
     type MRT_TableOptions,
     useMantineReactTable,
-    createRow,
 } from 'mantine-react-table';
 import {
     ActionIcon,
     Button,
     Flex,
+    Group,
     Stack,
     Text,
     Title,
     Tooltip,
+    rem
 } from '@mantine/core';
 import { ModalsProvider, modals } from '@mantine/modals';
-import { IconEdit, IconTrash } from '@tabler/icons-react';
+import { IconEdit, IconPhoto, IconTrash, IconUpload, IconX } from '@tabler/icons-react';
 import {
     QueryClient,
     QueryClientProvider,
@@ -33,10 +34,13 @@ import {
     RoadIn,
 } from "@/generated";
 
-import { UUID } from 'crypto';
+import {Point as PointDTO} from "@/generated";
+
 import { create, deleteById, getRoads } from './fetch';
-import { validateRequired, validateRequiredDateInFuture, validateRequiredPoints } from '../Validators/validation';
+import { validateRequired, validateRequiredPoints } from '../Validators/validation';
 import HeaderTabs from '../Menu/Menu';
+import { Dropzone, FileWithPath } from '@mantine/dropzone';
+import gpxParser from 'gpxparser';
 
 const Roads = () => {
     const [validationErrors, setValidationErrors] = useState<
@@ -105,6 +109,127 @@ const Roads = () => {
                             name: undefined,
                         }),
                     //optionally add validation checking for onBlur or onChange
+                },
+                Cell: ({ cell }) =>  {
+                    let points = cell.getValue<PointDTO[]>();
+                    let firstPoint: PointDTO = points[0];
+                    return <Text>
+                      {firstPoint.latitude} {" "} {firstPoint.longitude}
+                    </Text>
+                    },
+                Edit: ({ cell, column, row, table }) => {
+                    const [uploadedGPX, setUploadedGPX] = useState<any>()
+                    const [points, setPoints] = useState<PointDTO[]>()
+
+                    const onDrop = (files: FileWithPath[]) => {
+                        console.log('accepted files', files)
+                        console.log("handleChange");
+                        console.log(files);
+                        setUploadedGPX(files);
+
+                        var gpx = new gpxParser();
+                        let firstFile: FileWithPath = files[0];
+                        console.log("firstFile " + firstFile);
+
+                        let reader = new FileReader();
+
+                        reader.onload = function (event) {
+                            let fileText = event?.target?.result
+                            console.log(typeof fileText);
+                            if (fileText instanceof String) {
+                                let casted = fileText as string;
+                                let gpxParsed = gpx.parse(casted);
+                                console.log("gpxParsed", gpxParsed);
+                            }
+                            if (typeof fileText === "string") {
+                                let casted = fileText as string;
+                                
+                                let gpxParsed = gpx.parse(casted);
+                                console.log("gpxParsed", gpxParsed);
+                                var totalDistance = gpx.tracks[0].distance.total;
+                                console.log("totalDistance", totalDistance);
+
+                                var minElevation = gpx.tracks[0].elevation.min;
+                                var maxElevation = gpx.tracks[0].elevation.max;
+                                console.log("Elevation min max", minElevation, maxElevation);
+
+                                let track = gpx.tracks[0];
+                                console.log("track", track);
+
+                                let point = track.points[0]
+                                console.log("point", point);
+
+                                let pointDTO: PointDTO = {
+                                    latitude : point.lat,
+                                    longitude :  point.lon,
+                                }
+
+                                console.log("pointDTO", pointDTO);
+
+                                let pointDTOs: PointDTO[] = track.points.map(point => {
+                                    let pointDTO: PointDTO = {
+                                        latitude : point.lat,
+                                        longitude :  point.lon,
+                                    };
+                                    return pointDTO;
+                                })
+
+                                setPoints(pointDTOs);
+
+                                row._valuesCache[column.id] = pointDTOs
+                                if (isCreatingRoad) {
+                                    table.setCreatingRow(row);
+                                } else if (isUpdatingRoad) {
+                                    table.setEditingRow(row);
+                                }
+                            }
+                            console.log("onload", fileText);
+                            //holder.style.background = 'url(' + event.target.result + ') no-repeat center';
+                            // 
+                            
+                        };
+
+                        console.log(firstFile);
+                        let fileText = reader.readAsText(firstFile);
+                    }
+
+                    return <Dropzone
+                    onDrop={onDrop}
+                    // onChange={onChange}
+                    onReject={(files) => console.log('rejected files', files)}
+                    maxSize={5 * 1024 ** 2}
+                    // accept={["application/gpx", "application/gpx+xml"]}
+                    // {...props}
+                  >
+                    <Group position="center" spacing="xl" style={{ minHeight: rem(220), pointerEvents: 'none' }}>
+                      <Dropzone.Accept>
+                        <IconUpload
+                          size="3.2rem"
+                          stroke={1.5}
+                        //   color={theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6]}
+                        />
+                      </Dropzone.Accept>
+                      <Dropzone.Reject>
+                        <IconX
+                          size="3.2rem"
+                          stroke={1.5}
+                        //   color={theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6]}
+                        />
+                      </Dropzone.Reject>
+                      <Dropzone.Idle>
+                        <IconPhoto size="3.2rem" stroke={1.5} />
+                      </Dropzone.Idle>
+              
+                      <div>
+                        <Text size="xl" inline>
+                          Drag GPX file or click to select files
+                        </Text>
+                        <Text size="sm" color="dimmed" inline mt={7}>
+                          Attach one file, file size should not exceed 5mb
+                        </Text>
+                      </div>
+                    </Group>
+                  </Dropzone>;
                 },
             },
         ],
