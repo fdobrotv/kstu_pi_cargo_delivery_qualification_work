@@ -1,7 +1,9 @@
 /.idea/
 /.jpb/
-/touristagency-front2/
-/touristagency-front3/
-/touristagency-front4/
-/touristagency-front-first/
+/cargodelivery-front2/
+/cargodelivery-front3/
+/cargodelivery-front4/
+/cargodelivery-front-first/
 /local_stash/
+/.gradle/
+/build/

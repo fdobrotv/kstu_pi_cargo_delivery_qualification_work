@@ -1,0 +1,2135 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Cargo delivery
+  license:
+    name: KSTU
+servers:
+  - url: http://127.0.0.1/v1
+  - url: https://fdobrotv.com/v1
+paths:
+  /roles:
+    get:
+      summary: List all roles
+      operationId: listRoles
+      tags:
+        - roles
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of roles
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Roles"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a role
+      operationId: createRole
+      tags:
+        - roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /roles/{id}:
+    get:
+      summary: Info for a specific role
+      operationId: getRoleById
+      tags:
+        - roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific role by id
+      operationId: deleteRoleById
+      tags:
+        - roles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users:
+    get:
+      summary: List all users
+      operationId: listUsers
+      tags:
+        - users
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a user
+      operationId: createUser
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{id}:
+    get:
+      summary: Info for a specific user
+      operationId: getUserById
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific user by id
+      operationId: deleteUserById
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /drivers:
+    get:
+      summary: List all drivers
+      operationId: listDrivers
+      tags:
+        - drivers
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of drivers
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Drivers"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a driver
+      operationId: createDriver
+      tags:
+        - drivers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DriverIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Driver"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /drivers/{id}:
+    get:
+      summary: Info for a specific driver
+      operationId: getDriverById
+      tags:
+        - drivers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Driver"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific driver by id
+      operationId: deleteDriverById
+      tags:
+        - drivers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /orders:
+    get:
+      summary: List all orders
+      operationId: listOrders
+      tags:
+        - orders
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of orders
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Orders"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a order
+      operationId: createOrder
+      tags:
+        - orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /orders/{id}:
+    get:
+      summary: Info for a specific order
+      operationId: getOrderById
+      tags:
+        - orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific order by id
+      operationId: deleteOrderById
+      tags:
+        - orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /settlements:
+    get:
+      summary: List all settlements
+      operationId: listSettlements
+      tags:
+        - settlements
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of settlements
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Settlements"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a settlement
+      operationId: createSettlement
+      tags:
+        - settlements
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SettlementIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Settlement"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /settlements/{id}:
+    get:
+      summary: Info for a specific settlement
+      operationId: getSettlementById
+      tags:
+        - settlements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Settlement"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific settlement by id
+      operationId: deleteSettlementById
+      tags:
+        - settlements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /roads:
+    get:
+      summary: List all roads
+      operationId: listRoads
+      tags:
+        - roads
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of roads
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Roads"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a road
+      operationId: createRoad
+      tags:
+        - roads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoadIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Road"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /roads/{id}:
+    get:
+      summary: Info for a specific food option
+      operationId: getRoadById
+      tags:
+        - roads
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Road"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific food option by id
+      operationId: deleteRoadById
+      tags:
+        - roads
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ways:
+    get:
+      summary: List all ways
+      operationId: listWays
+      tags:
+        - ways
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of ways
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ways"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a way
+      operationId: createWay
+      tags:
+        - ways
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WayIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Way"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ways/{id}:
+    get:
+      summary: Info for a specific way
+      operationId: getWayById
+      tags:
+        - ways
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Way"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific way by id
+      operationId: deleteWayById
+      tags:
+        - ways
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /fuelStations:
+    get:
+      summary: List all fuel stations
+      operationId: listFuelStations
+      tags:
+        - fuelStations
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of fuel stations
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FuelStations"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a fuel station
+      operationId: createFuelStation
+      tags:
+        - fuelStations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FuelStationIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FuelStation"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /fuelStations/{id}:
+    get:
+      summary: Info for a specific fuel station
+      operationId: getFuelStationById
+      tags:
+        - fuelStations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FuelStation"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific fuel station by id
+      operationId: deleteFuelStationById
+      tags:
+        - fuelStations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /refuels:
+    get:
+      summary: List all refuels
+      operationId: listRefuels
+      tags:
+        - refuels
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of refuels
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Refuels"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a refuel
+      operationId: createRefuel
+      tags:
+        - refuels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefuelIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Refuel"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /refuels/{id}:
+    get:
+      summary: Info for a specific refuel
+      operationId: getRefuelById
+      tags:
+        - refuels
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Refuel"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific refuel by id
+      operationId: deleteRefuelById
+      tags:
+        - refuels
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /incidents:
+    get:
+      summary: List all incidents
+      operationId: listIncidents
+      tags:
+        - incidents
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of incidents
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incidents"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create an incident
+      operationId: createIncident
+      tags:
+        - incidents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IncidentIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incident"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /incidents/{id}:
+    get:
+      summary: Info for a specific incident
+      operationId: getIncidentById
+      tags:
+        - incidents
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Incident"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific incident by id
+      operationId: deleteIncidentById
+      tags:
+        - incidents
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /workSlots:
+    get:
+      summary: List all work slots
+      operationId: listWorkSlots
+      tags:
+        - workSlots
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of car models
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkSlots"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a work slot
+      operationId: createWorkSlot
+      tags:
+        - workSlots
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkSlotIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkSlot"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /workSlots/{id}:
+    get:
+      summary: Info for a specific work slot
+      operationId: getWorkSlotById
+      tags:
+        - workSlots
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkSlot"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific work slot by id
+      operationId: deleteWorkSlotById
+      tags:
+        - workSlots
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carModels:
+    get:
+      summary: List all car models
+      operationId: listCarModels
+      tags:
+        - carModels
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of car models
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarModels"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a car model
+      operationId: createCarModel
+      tags:
+        - carModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CarModelIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarModel"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carModels/{id}:
+    get:
+      summary: Info for a specific car model
+      operationId: getCarModelById
+      tags:
+        - carModels
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarModel"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific car model by id
+      operationId: deleteCarModelById
+      tags:
+        - carModels
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carMarks:
+    get:
+      summary: List all carMarks
+      operationId: listCarMarks
+      tags:
+        - carMarks
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of car marks
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarMarks"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a car mark
+      operationId: createCarMark
+      tags:
+        - carMarks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CarMarkIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarMark"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carMarks/{id}:
+    get:
+      summary: Info for a specific car mark
+      operationId: getCarMarkById
+      tags:
+        - carMarks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarMark"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific car by id
+      operationId: deleteCarMarkById
+      tags:
+        - carMarks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cars:
+    get:
+      summary: List all cars
+      operationId: listCars
+      tags:
+        - cars
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            format: int32
+      responses:
+        '200':
+          description: A paged array of cars
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cars"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a car
+      operationId: createCar
+      tags:
+        - cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CarIn"
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cars/{id}:
+    get:
+      summary: Info for a specific car
+      operationId: getCarById
+      tags:
+        - cars
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Car"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific car by id
+      operationId: deleteCarById
+      tags:
+        - cars
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the resource to delete
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Resource deleted successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Roles:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Role"
+    RoleIn:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Driver
+    Role:
+      allOf:
+        - $ref: '#/components/schemas/RoleIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+
+    Users:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/User"
+    UserIn:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - middleName
+        - roleId
+        - phone
+        - email
+      properties:
+        firstName:
+          type: string
+          example: Василий
+        lastName:
+          type: string
+          example: Пупкин
+        middleName:
+          type: string
+          example: Веселович
+        roleId:
+          type: string
+          format: uuid
+        phone:
+          type: string
+          example: 79993336677
+          pattern: '^\d{11}$'
+        email:
+          type: string
+          format: email
+          example: vasiliy@pupkin.ru
+    User:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - middleName
+        - role
+        - phone
+        - email
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+          example: Василий
+        lastName:
+          type: string
+          example: Пупкин
+        middleName:
+          type: string
+          example: Веселович
+        role:
+          type: string
+          example: Driver
+        phone:
+          type: string
+          example: 79993336677
+          pattern: '^\d{11}$'
+        email:
+          type: string
+          format: email
+          example: vasiliy@pupkin.ru
+        createdAt:
+          type: string
+          format: date-time
+
+    CarColor:
+      type: string
+      enum:
+        - white
+        - black
+        - brown
+        - yellow
+        - red
+        - blue
+        - silver
+    Point:
+      type: object
+      required:
+        - longitude
+        - latitude
+      properties:
+        longitude:
+          type: number
+          description: longitude for coordinate
+          example: 55.751059669259625
+        latitude:
+          type: number
+          description: latitude for coordinate
+          example: 37.61768042058358
+    Path:
+      type: array
+      items:
+        $ref: "#/components/schemas/Point"
+    Settlements:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Settlement"
+    SettlementIn:
+      type: object
+      required:
+        - name
+        - coordinates
+      properties:
+        name:
+          type: string
+          example: Москва
+        coordinates:
+          $ref: "#/components/schemas/Point"
+    Settlement:
+      allOf:
+        - $ref: '#/components/schemas/SettlementIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+    Roads:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Road"
+    RoadIn:
+      type: object
+      required:
+        - name
+        - description
+        - path
+      properties:
+        name:
+          type: string
+          example: M-1
+        description:
+          type: string
+          example: Moscow to Minsk
+        path:
+          $ref: "#/components/schemas/Path"
+    Road:
+      allOf:
+        - $ref: '#/components/schemas/RoadIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+    Ways:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Way"
+    WayIn:
+      type: object
+      required:
+        - name
+        - description
+        - departureSettlementId
+        - destinationSettlementId
+        - roads
+      properties:
+        name:
+          type: string
+          example: Путь из Москвы в Сочи
+        description:
+          type: string
+          example: Тур из Москвы в Анталию
+        departureSettlementId:
+          type: string
+          format: uuid
+        destinationSettlementId:
+          type: string
+          format: uuid
+        roadIds:
+          items:
+            type: string
+            format: uuid
+    Way:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - departureSettlement
+        - destinationSettlement
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Путь из Москвы в Сочи
+        description:
+          type: string
+          example: Тур из Москвы в Анталию
+        departureSettlement:
+          $ref: "#/components/schemas/Settlement"
+        destinationSettlement:
+          $ref: "#/components/schemas/Settlement"
+        roads:
+          items:
+            $ref: "#/components/schemas/Road"
+    Incidents:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Incident"
+    IncidentIn:
+      type: object
+      required:
+        - description
+        - dateTime
+        - carId
+        - driverId
+        - coordinates
+      properties:
+        description:
+          type: string
+          example: Лукойл 55
+        dateTime:
+          type: string
+          format: date-time
+        carId:
+          type: string
+          format: uuid
+        driverId:
+          type: string
+          format: uuid
+        coordinates:
+          $ref: "#/components/schemas/Point"
+    Incident:
+      type: object
+      required:
+        - id
+        - description
+        - createdAt
+        - dateTime
+        - car
+        - driver
+        - coordinates
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          example: Лукойл 55
+        createdAt:
+          type: string
+          format: date-time
+        dateTime:
+          type: string
+          format: date-time
+        car:
+          $ref: "#/components/schemas/Car"
+        driver:
+          $ref: "#/components/schemas/Driver"
+        coordinates:
+          $ref: "#/components/schemas/Point"
+    FuelStations:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/FuelStation"
+    FuelStationIn:
+      type: object
+      required:
+        - name
+        - description
+        - coordinates
+      properties:
+        name:
+          type: string
+          example: Лукойл 55
+        description:
+          type: string
+          example: Заправка на 8 грузовых машин с кафе
+        coordinates:
+          $ref: "#/components/schemas/Point"
+    FuelStation:
+      allOf:
+        - $ref: '#/components/schemas/FuelStationIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+    Refuels:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Refuel"
+    RefuelIn:
+      type: object
+      required:
+        - price
+        - dateTime
+        - fuelStationId
+        - carId
+        - driverId
+      properties:
+        price:
+          type: number
+          example: 10500
+        dateTime:
+          type: string
+          format: date-time
+        fuelStationId:
+          type: string
+          format: uuid
+        carId:
+          type: string
+          format: uuid
+        driverId:
+          type: string
+          format: uuid
+    Refuel:
+      type: object
+      required:
+        - id
+        - price
+        - createdAt
+        - dateTime
+        - fuelStation
+        - car
+        - driver
+      properties:
+        id:
+          type: string
+          format: uuid
+        price:
+          type: integer
+          example: 10500
+        createdAt:
+          type: string
+          format: date-time
+        dateTime:
+          type: string
+          format: date-time
+        fuelStation:
+          $ref: "#/components/schemas/FuelStation"
+        car:
+          $ref: "#/components/schemas/Car"
+        driver:
+          $ref: "#/components/schemas/Driver"
+    WorkSlots:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/WorkSlot"
+    WorkSlotIn:
+      type: object
+      required:
+        - startedAt
+        - finishedAt
+        - driverId
+        - carId
+        - startCoordinates
+        - endCoordinates
+      properties:
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        driverId:
+          type: string
+          format: uuid
+        carId:
+          type: string
+          format: uuid
+        startCoordinates:
+          $ref: "#/components/schemas/Point"
+        endCoordinates:
+          $ref: "#/components/schemas/Point"
+    WorkSlot:
+      type: object
+      required:
+        - id
+        - startedAt
+        - finishedAt
+        - driver
+        - car
+        - startCoordinates
+        - endCoordinates
+      properties:
+        id:
+          type: string
+          format: uuid
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        driver:
+          $ref: "#/components/schemas/Driver"
+        car:
+          $ref: "#/components/schemas/Car"
+        startCoordinates:
+          $ref: "#/components/schemas/Point"
+        endCoordinates:
+          $ref: "#/components/schemas/Point"
+    CarMarks:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/CarMark"
+    CarMarkIn:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Peugeot
+
+    CarMark:
+      allOf:
+        - $ref: '#/components/schemas/CarMarkIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+
+    CarModels:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/CarModel"
+    CarModelIn:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Traveller
+    CarModel:
+      allOf:
+        - $ref: '#/components/schemas/CarModelIn'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+
+    Cars:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Car"
+    CarIn:
+      type: object
+      required:
+        - markId
+        - modelId
+        - plateNumber
+        - color
+      properties:
+        markId:
+          type: string
+          format: uuid
+        modelId:
+          type: string
+          format: uuid
+        plateNumber:
+          type: string
+          example: A123TH716RUS
+        color:
+          $ref: "#/components/schemas/CarColor"
+    Car:
+      type: object
+      required:
+        - id
+        - mark
+        - model
+        - plateNumber
+        - color
+      properties:
+        id:
+          type: string
+          format: uuid
+        mark:
+          type: string
+          example: Peugeot
+        model:
+          type: string
+          example: Traveller
+        plateNumber:
+          type: string
+          example: A123TH716RUS
+        color:
+          $ref: "#/components/schemas/CarColor"
+    Drivers:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Driver"
+    DriverIn:
+      type: object
+      required:
+        - userId
+        - carId
+      properties:
+        userId:
+          type: string
+          format: uuid
+        carId:
+          type: string
+          format: uuid
+    Driver:
+      type: object
+      required:
+        - id
+        - user
+        - car
+      properties:
+        id:
+          type: string
+          format: uuid
+        user:
+          $ref: "#/components/schemas/User"
+        car:
+          $ref: "#/components/schemas/Car"
+    Orders:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Order"
+    OrderIn:
+      type: object
+      required:
+        - userId
+        - departureSettlementId
+        - destinationSettlementId
+        - weight
+        - volume
+        - price
+      properties:
+        userId:
+          type: string
+          format: uuid
+        departureSettlementId:
+          type: string
+          format: uuid
+        destinationSettlementId:
+          type: string
+          format: uuid
+        weight:
+          type: number
+          example: 215 # KGs
+        volume:
+          type: number
+          example: 0.85 # Cubic meter
+        price:
+          type: integer
+          example: 10500
+    Order:
+      type: object
+      required:
+        - id
+        - user
+        - createdAt
+        - departureSettlement
+        - destinationSettlement
+        - weight
+        - volume
+        - price
+      properties:
+        id:
+          type: string
+          format: uuid
+        user:
+          $ref: "#/components/schemas/User"
+        createdAt:
+          type: string
+          format: date-time
+        departureSettlement:
+          $ref: "#/components/schemas/Settlement"
+        destinationSettlement:
+          $ref: "#/components/schemas/Settlement"
+        weight:
+          type: number
+          example: 215 # KGs
+        volume:
+          type: number
+          example: 0.85 # Cubic meter
+        price:
+          type: integer
+          example: 10500
+#    IDAware:
+#      type: object
+#      required:
+#        - id
+#      properties:
+#        id:
+#          type: string
+#          format: uuid
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

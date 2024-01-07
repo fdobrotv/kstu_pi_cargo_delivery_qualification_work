@@ -1,11 +1,11 @@
 services:
   postgres:
     image: 'postgres:latest'
-    container_name: touristagency-db
+    container_name: cargodelivery-db
     environment:
-      - 'POSTGRES_DB=touristagency'
+      - 'POSTGRES_DB=cargodelivery'
       - 'POSTGRES_PASSWORD=d8a10358-32bc-46ab-9a59-472ad1156d41'
-      - 'POSTGRES_USER=touristagency'
+      - 'POSTGRES_USER=cargodelivery'
     ports:
       - 5432:5432
     expose:
@@ -28,26 +28,26 @@ services:
     ports:
       - "8889:8080"
     environment:
-      SWAGGER_FILE: /specs/touristagency-v1.0.yaml
+      SWAGGER_FILE: /specs/cargodelivery-v1.0.yaml
     volumes:
-      - ./specs/touristagency-v1.0.yaml:/specs/touristagency-v1.0.yaml
-  touristagency-front:
-    build:
-      context: touristagency-front-first
-      dockerfile: Dockerfile
-    container_name: touristagency-front
-    volumes:
-      - ./touristagency-front:/app
-      - /app/node_modules
-    ports:
-      - 3000:3000
-    expose:
-      - 3000
-    environment:
-      - NODE_ENV=production
-    entrypoint:
-      - yarn
-      - start
+      - ./specs/cargodelivery-v1.0.yaml:/specs/cargodelivery-v1.0.yaml
+#  cargodelivery-front:
+#    build:
+#      context: cargodelivery-front
+#      dockerfile: Dockerfile
+#    container_name: cargodelivery-front
+#    volumes:
+#      - ./cargodelivery-front:/app
+#      - /app/node_modules
+#    ports:
+#      - 3000:3000
+#    expose:
+#      - 3000
+#    environment:
+#      - NODE_ENV=production
+#    entrypoint:
+#      - yarn
+#      - start
 volumes:
   pgdata:
   pgadmin:

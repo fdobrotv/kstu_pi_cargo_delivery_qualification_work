@@ -8,68 +8,89 @@ CREATE TYPE "car_color" AS ENUM (
   'silver'
 );
 
-CREATE TYPE "service_class" AS ENUM (
-  'ONE',
-  'TWO',
-  'THREE',
-  'FOUR',
-  'FIVE'
-);
-
 CREATE TABLE "role" (
   "id" uuid PRIMARY KEY,
-  "name" varchar
+  "name" varchar UNIQUE NOT NULL
 );
 
 CREATE TABLE "user" (
   "id" uuid PRIMARY KEY,
-  "first_name" varchar,
+  "first_name" varchar NOT NULL,
   "last_name" varchar,
   "middle_name" varchar,
-  "role_id" uuid,
-  "created_at" timestamp,
-  "phone" integer,
-  "email" varchar
+  "role_id" uuid NOT NULL,
+  "created_at" timestamp NOT NULL,
+  "phone" integer NOT NULL,
+  "email" varchar NOT NULL
 );
 
-CREATE TABLE "password" (
+CREATE TABLE "driver" (
   "id" uuid PRIMARY KEY,
-  "user_id" uuid UNIQUE,
-  "value" varchar,
-  "created_at" timestamp,
-  "active" boolean
+  "car_id" uuid NOT NULL,
+  "user_id" uuid NOT NULL
 );
 
-CREATE TABLE "tour" (
-  "id" uuid PRIMARY KEY,
-  "departure_flight_id" uuid NOT NULL,
-  "arrival_flight_id" uuid NOT NULL,
-  "transfer_to_hotel_id" uuid NOT NULL,
-  "transfer_from_hotel_id" uuid NOT NULL,
-  "description" text NOT NULL,
-  "price" bigint NOT NULL,
-  "hotel_room_id" uuid NOT NULL,
-  "selected_food_option_id" uuid NOT NULL
-);
-
-CREATE TABLE "flight" (
-  "id" uuid PRIMARY KEY,
-  "departure_airport" varchar NOT NULL,
-  "arrival_airport" varchar NOT NULL,
-  "departure_date_time" timestamp NOT NULL,
-  "arrival_date_time" timestamp NOT NULL
-);
-
-CREATE TABLE "transfer" (
+CREATE TABLE "settlement" (
   "id" uuid PRIMARY KEY,
   "name" varchar NOT NULL,
-  "car_id" uuid,
-  "departure_coordinates" varchar NOT NULL,
-  "arrival_coordinates" varchar NOT NULL,
+  "coordinates" bytea NOT NULL
+);
+
+CREATE TABLE "road" (
+  "id" uuid PRIMARY KEY,
+  "name" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "path" bytea[] NOT NULL
+);
+
+CREATE TABLE "way" (
+  "id" uuid PRIMARY KEY,
+  "name" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "departure_settlement_id" uuid NOT NULL,
+  "destination_settlement_id" uuid NOT NULL
+);
+
+CREATE TABLE "road_to_way" (
+  "road_id" uuid NOT NULL,
+  "way_id" uuid NOT NULL
+);
+
+CREATE TABLE "refuel" (
+  "id" uuid PRIMARY KEY,
   "price" bigint NOT NULL,
-  "departure_date_time" timestamp NOT NULL,
-  "arrival_date_time" timestamp NOT NULL,
-  "is_guide_included" boolean NOT NULL
+  "created_at" timestamp NOT NULL,
+  "date_time" timestamp NOT NULL,
+  "fuel_station_id" uuid NOT NULL,
+  "car_id" uuid NOT NULL,
+  "driver_id" uuid NOT NULL
+);
+
+CREATE TABLE "fuel_station" (
+  "id" uuid PRIMARY KEY,
+  "name" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "coordinates" bytea NOT NULL
+);
+
+CREATE TABLE "incident" (
+  "id" uuid PRIMARY KEY,
+  "description" varchar NOT NULL,
+  "created_at" timestamp NOT NULL,
+  "date_time" timestamp NOT NULL,
+  "car_id" uuid NOT NULL,
+  "driver_id" uuid NOT NULL,
+  "coordinates" bytea NOT NULL
+);
+
+CREATE TABLE "work_slot" (
+  "id" uuid PRIMARY KEY,
+  "started_at" timestamp NOT NULL,
+  "finished_at" timestamp NOT NULL,
+  "car_id" uuid NOT NULL,
+  "driver_id" uuid NOT NULL,
+  "start_coordinates" bytea NOT NULL,
+  "end_coordinates" bytea NOT NULL
 );
 
 CREATE TABLE "car" (
@@ -77,7 +98,7 @@ CREATE TABLE "car" (
   "mark_id" uuid NOT NULL,
   "model_id" uuid NOT NULL,
   "plate_number" varchar UNIQUE NOT NULL,
-  "color" car_color
+  "color" car_color NOT NULL
 );
 
 CREATE TABLE "car_mark" (
@@ -90,132 +111,59 @@ CREATE TABLE "car_model" (
   "name" varchar UNIQUE NOT NULL
 );
 
-CREATE TABLE "hotel" (
+CREATE TABLE "order" (
   "id" uuid PRIMARY KEY,
-  "name" varchar UNIQUE NOT NULL,
-  "address" varchar NOT NULL,
-  "class" service_class NOT NULL,
-  "is_guide_included" boolean NOT NULL
-);
-
-CREATE TABLE "room" (
-  "id" uuid PRIMARY KEY,
-  "name" varchar NOT NULL,
-  "class" service_class NOT NULL,
-  "price_per_night" bigint NOT NULL,
-  "hotel_id" uuid NOT NULL
-);
-
-CREATE TABLE "room_photo" (
-  "id" uuid PRIMARY KEY,
-  "room_id" uuid NOT NULL,
-  "url" text UNIQUE NOT NULL
-);
-
-CREATE TABLE "hotel_photo" (
-  "id" uuid PRIMARY KEY,
-  "hotel_id" uuid NOT NULL,
-  "url" text UNIQUE NOT NULL
-);
-
-CREATE TABLE "food_option" (
-  "id" uuid PRIMARY KEY,
-  "name" varchar UNIQUE NOT NULL,
-  "price" bigint
-);
-
-CREATE TABLE "flight_food_option" (
-  "id" uuid PRIMARY KEY,
-  "name" varchar UNIQUE NOT NULL,
-  "price" bigint
-);
-
-CREATE TABLE "tour_feedback" (
-  "id" uuid PRIMARY KEY,
-  "tour_id" uuid NOT NULL,
-  "title" varchar NOT NULL,
-  "body" text NOT NULL,
-  "user_id" uuid,
-  "is_moderated" boolean NOT NULL,
-  "created_at" timestamp NOT NULL
-);
-
-CREATE TABLE "hotel_feedback" (
-  "id" uuid PRIMARY KEY,
-  "hotel_id" uuid NOT NULL,
-  "title" varchar NOT NULL,
-  "body" text NOT NULL,
-  "user_id" uuid,
-  "is_moderated" boolean NOT NULL,
-  "created_at" timestamp NOT NULL
-);
-
-CREATE TABLE "booking" (
-  "id" uuid PRIMARY KEY,
+  "user_id" uuid NOT NULL,
   "created_at" timestamp NOT NULL,
-  "tour_id" uuid NOT NULL
-);
-
-CREATE TABLE "booking_approval" (
-  "id" uuid PRIMARY KEY,
-  "created_at" timestamp NOT NULL,
-  "booking_id" uuid UNIQUE
+  "departure_settlement_id" uuid NOT NULL,
+  "destination_settlement_id" uuid NOT NULL,
+  "weight" decimal NOT NULL,
+  "volume" decimal NOT NULL,
+  "price" bigint NOT NULL
 );
 
 CREATE TABLE "payment" (
   "id" uuid PRIMARY KEY,
   "created_at" timestamp NOT NULL,
-  "tour_id" uuid NOT NULL
+  "order_id" uuid NOT NULL
 );
 
-CREATE TABLE "payment_approval" (
-  "id" uuid PRIMARY KEY,
-  "created_at" timestamp NOT NULL,
-  "payment_id" uuid UNIQUE
-);
+ALTER TABLE "payment" ADD FOREIGN KEY ("order_id") REFERENCES "order" ("id");
 
-COMMENT ON COLUMN "tour_feedback"."body" IS 'Content of the review';
+ALTER TABLE "driver" ADD FOREIGN KEY ("car_id") REFERENCES "car" ("id");
 
-COMMENT ON COLUMN "hotel_feedback"."body" IS 'Content of the review';
+ALTER TABLE "driver" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
-ALTER TABLE "tour" ADD FOREIGN KEY ("hotel_room_id") REFERENCES "room" ("id");
+ALTER TABLE "order" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
-ALTER TABLE "tour" ADD FOREIGN KEY ("selected_food_option_id") REFERENCES "food_option" ("id");
+ALTER TABLE "order" ADD FOREIGN KEY ("departure_settlement_id") REFERENCES "settlement" ("id");
 
-ALTER TABLE "tour" ADD FOREIGN KEY ("departure_flight_id") REFERENCES "flight" ("id");
-
-ALTER TABLE "tour" ADD FOREIGN KEY ("arrival_flight_id") REFERENCES "flight" ("id");
-
-ALTER TABLE "tour" ADD FOREIGN KEY ("transfer_to_hotel_id") REFERENCES "transfer" ("id");
-
-ALTER TABLE "tour" ADD FOREIGN KEY ("transfer_from_hotel_id") REFERENCES "transfer" ("id");
-
-ALTER TABLE "transfer" ADD FOREIGN KEY ("car_id") REFERENCES "car" ("id");
-
-ALTER TABLE "car" ADD FOREIGN KEY ("mark_id") REFERENCES "car_mark" ("id");
+ALTER TABLE "order" ADD FOREIGN KEY ("destination_settlement_id") REFERENCES "settlement" ("id");
 
 ALTER TABLE "car" ADD FOREIGN KEY ("model_id") REFERENCES "car_model" ("id");
 
-ALTER TABLE "room" ADD FOREIGN KEY ("hotel_id") REFERENCES "hotel" ("id");
+ALTER TABLE "car" ADD FOREIGN KEY ("mark_id") REFERENCES "car_mark" ("id");
 
-ALTER TABLE "room_photo" ADD FOREIGN KEY ("room_id") REFERENCES "room" ("id");
+ALTER TABLE "work_slot" ADD FOREIGN KEY ("driver_id") REFERENCES "driver" ("id");
 
-ALTER TABLE "hotel_photo" ADD FOREIGN KEY ("hotel_id") REFERENCES "hotel" ("id");
+ALTER TABLE "work_slot" ADD FOREIGN KEY ("car_id") REFERENCES "car" ("id");
 
-ALTER TABLE "tour_feedback" ADD FOREIGN KEY ("tour_id") REFERENCES "tour" ("id");
+ALTER TABLE "incident" ADD FOREIGN KEY ("driver_id") REFERENCES "driver" ("id");
 
-ALTER TABLE "hotel_feedback" ADD FOREIGN KEY ("hotel_id") REFERENCES "hotel" ("id");
+ALTER TABLE "incident" ADD FOREIGN KEY ("car_id") REFERENCES "car" ("id");
 
-ALTER TABLE "user" ADD FOREIGN KEY ("id") REFERENCES "password" ("user_id");
+ALTER TABLE "refuel" ADD FOREIGN KEY ("driver_id") REFERENCES "driver" ("id");
+
+ALTER TABLE "refuel" ADD FOREIGN KEY ("car_id") REFERENCES "car" ("id");
+
+ALTER TABLE "refuel" ADD FOREIGN KEY ("fuel_station_id") REFERENCES "fuel_station" ("id");
+
+ALTER TABLE "road_to_way" ADD FOREIGN KEY ("road_id") REFERENCES "road" ("id");
+
+ALTER TABLE "road_to_way" ADD FOREIGN KEY ("way_id") REFERENCES "way" ("id");
 
 ALTER TABLE "user" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
-ALTER TABLE "tour_feedback" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+ALTER TABLE "way" ADD FOREIGN KEY ("departure_settlement_id") REFERENCES "settlement" ("id");
 
-ALTER TABLE "booking" ADD FOREIGN KEY ("tour_id") REFERENCES "tour" ("id");
-
-ALTER TABLE "booking" ADD FOREIGN KEY ("id") REFERENCES "booking_approval" ("booking_id");
-
-ALTER TABLE "payment" ADD FOREIGN KEY ("tour_id") REFERENCES "booking" ("id");
-
-ALTER TABLE "payment" ADD FOREIGN KEY ("id") REFERENCES "payment_approval" ("payment_id");
+ALTER TABLE "way" ADD FOREIGN KEY ("destination_settlement_id") REFERENCES "settlement" ("id");
