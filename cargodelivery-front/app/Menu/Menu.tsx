@@ -26,9 +26,7 @@ import {
   IconSwitchHorizontal,
   IconChevronDown,
 } from '@tabler/icons-react';
-// import { MantineLogo } from '@mantinex/mantine-logo';
 import classes from './HeaderTabs.module.css';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 
 const user = {
@@ -38,20 +36,20 @@ const user = {
 };
 
 const tabs = [
-  'Orders',
-  'WorkSlots',
-  'Incidents',
-  'Refuels',
-  'FuelStations',
-  'Ways',
-  'Roads',
-  'Settlements',
-  'Drivers',
-  'Users',
-  'Roles',
-  'Cars',
-  'CarMarks',
-  'CarModels',
+  {key: 'Orders', value: 'Заказы'},
+  {key: 'WorkSlots', value: 'Рабочие Слоты'},
+  {key: 'Incidents', value: 'Инцидетны'},
+  {key: 'Refuels', value: 'Заправки'},
+  {key: 'FuelStations', value: 'Запровочные станции'},
+  {key: 'Ways', value: 'Пути'},
+  {key: 'Roads', value: 'Дороги'},
+  {key: 'Settlements', value: 'Населённые пункты'},
+  {key: 'Drivers', value: 'Водители'},
+  {key: 'Users', value: 'Пользователи'},
+  {key: 'Roles', value: 'Роли'},
+  {key: 'Cars', value: 'Машины'},
+  {key: 'CarMarks', value: 'Марки машин'},
+  {key: 'CarModels', value: 'Модели машин'},
 ];
 
 export function HeaderTabs() {
@@ -61,10 +59,10 @@ export function HeaderTabs() {
   const [activeTab, setActiveTab] = useState<string>('');
 
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
-        {tab}
+    <Tabs.Tab value={tab.key} accessKey={tab.value} > 
+        {tab.value}
     </Tabs.Tab>
-  ));
+  )); 
 
   const router = useRouter()
 
@@ -107,7 +105,7 @@ export function HeaderTabs() {
                   />
                 }
               >
-                Booked trips
+                Ordered deliveries
               </Menu.Item>
               <Menu.Item
                 leftSection={
@@ -118,7 +116,7 @@ export function HeaderTabs() {
                   />
                 }
               >
-                Paid trips
+                Paid deliveries
               </Menu.Item>
               <Menu.Item
                 leftSection={
@@ -187,8 +185,19 @@ export function HeaderTabs() {
           }}
           value={activeTab} 
           onClick={(value) => {
-            setActiveTab(value.target.innerText)
-            router.push('/' + value.target.innerText)
+            console.log("onClick")
+            console.log("value: " + typeof value)
+            console.log(value)
+            let spanElement: HTMLSpanElement = value.target;
+            console.log(spanElement)
+            // setActiveTab(spanElement.innerText)
+            // router.push('/' + spanElement.innerText)
+          }}
+          onTabChange={(value) => {
+            console.log("onTabChange")
+            console.log(value)
+            router.push(`/${value}`);
+            setActiveTab(value)
           }}
         >
           <Tabs.List grow>{items}</Tabs.List>
