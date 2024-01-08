@@ -122,7 +122,7 @@ const Orders = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="User first and last name"
+                        label="Имя и фамилия клиента"
                         placeholder="Выберите значение"
                         data={data}
                     />;
@@ -158,7 +158,7 @@ const Orders = () => {
                 Cell: ({ cell }) =>  {
                     let date = cell.getValue<Date>();
                     return <Text>
-                      {date.toISOString()}
+                      {date?.toISOString()}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {

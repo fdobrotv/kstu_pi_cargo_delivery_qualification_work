@@ -129,7 +129,7 @@ const Incidents = () => {
                 Cell: ({ cell }) =>  {
                     let date = cell.getValue<Date>();
                     return <Text>
-                      {date.toISOString()}
+                      {date?.toISOString()}
                     </Text>
                     },
             },
@@ -226,7 +226,7 @@ const Incidents = () => {
                 Cell: ({ cell }) =>  {
                     let driver = cell.getValue<Driver>();
                     return <Text>
-                      {driver.user.firstName + " " + driver.user.lastName}
+                      {driver?.user.firstName + " " + driver?.user.lastName}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {

@@ -255,7 +255,7 @@ const Ways = () => {
                 Cell: ({ cell }) =>  {
                     let roads = cell.getValue<Road[]>();
                     return <Text>
-                      {`${roads.map(road => road.name).join(", ")}`} 
+                      {`${roads?.map(road => road.name).join(", ")}`} 
                     </Text>
                 },
                 Edit: ({ cell, column, row, table }) => {
