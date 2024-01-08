@@ -82,7 +82,7 @@ const Drivers = () => {
                 Cell: ({ cell }) =>  {
                     let car = cell.getValue<Car>();
                     return <Text>
-                      {car.plateNumber + " " + car.mark + " " + car.model}
+                      {car?.plateNumber + " " + car?.mark + " " + car?.model}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {
@@ -133,8 +133,8 @@ const Drivers = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Car"
-                        placeholder="Pick value"
+                        label="Автомобиль"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -208,8 +208,8 @@ const Drivers = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="User"
-                        placeholder="Pick value"
+                        label="Пользователь"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -309,7 +309,7 @@ const Drivers = () => {
         onEditingRowSave: handleSaveDriver,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Driver</Title>
+                <Title order={3}>Создать нового водителя</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -356,7 +356,7 @@ const Drivers = () => {
                     // );
                 }}
             >
-                Create New Driver
+                Создать нового водителя
             </Button>
         ),
         state: {

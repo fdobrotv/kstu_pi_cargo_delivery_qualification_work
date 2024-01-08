@@ -181,8 +181,8 @@ const WorkSlots = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Car"
-                        placeholder="Pick value"
+                        label="Машина"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -205,7 +205,7 @@ const WorkSlots = () => {
                 Cell: ({ cell }) =>  {
                     let driver = cell.getValue<Driver>();
                     return <Text>
-                      {driver.user.firstName + " " + driver.user.lastName + " " + driver.car.plateNumber}
+                      {driver.user.firstName + " " + driver.user.lastName}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {
@@ -224,7 +224,7 @@ const WorkSlots = () => {
                             return response.map( (driver: Driver) => {
                                 const items = {
                                     value: driver.id,
-                                    label: driver.user.firstName + " " + driver.user.lastName + " " + driver.car.plateNumber
+                                    label: driver.user.firstName + " " + driver.user.lastName
                                 }
                                 return items;
                             });
@@ -256,8 +256,8 @@ const WorkSlots = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Driver"
-                        placeholder="Pick value"
+                        label="Водитель"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -308,12 +308,12 @@ const WorkSlots = () => {
 
                     return <>
                         <TextInput onChange={onLatitudeChange} onBlur={onBlur}
-                        label="Latitude"
-                        placeholder="Enter latitude value"
+                        label="Широта"
+                        placeholder="Введите значение широты"
                         />
                         <TextInput onChange={onLongitudeChange} onBlur={onBlur}
-                        label="Longitude"
-                        placeholder="Enter longitude value"
+                        label="Долгота"
+                        placeholder="Введите значение долготы"
                         />
                     </>;
                 },
@@ -376,12 +376,12 @@ const WorkSlots = () => {
 
                     return <>
                         <TextInput onChange={onLatitudeChange} onBlur={onBlur}
-                        label="Latitude"
-                        placeholder="Enter latitude value"
+                        label="Широта"
+                        placeholder="Введите значение широты"
                         />
                         <TextInput onChange={onLongitudeChange} onBlur={onBlur}
-                        label="Longitude"
-                        placeholder="Enter longitude value"
+                        label="Долгота"
+                        placeholder="Введите значение долготы"
                         />
                     </>;
                 },
@@ -507,7 +507,7 @@ const WorkSlots = () => {
         onEditingRowSave: handleSaveWorkSlot,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New WorkSlot</Title>
+                <Title order={3}>Создать новый отчёт о выполненной работе</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -554,7 +554,7 @@ const WorkSlots = () => {
                     // );
                 }}
             >
-                Create New WorkSlot
+                Создать новый отчёт о выполненной работе
             </Button>
         ),
         state: {

@@ -169,7 +169,7 @@ const Roles = () => {
         onEditingRowSave: handleSaveRole,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Role</Title>
+                <Title order={3}>Создать новую роль</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -216,7 +216,7 @@ const Roles = () => {
                     // );
                 }}
             >
-                Create New Role
+                Создать новую роль
             </Button>
         ),
         state: {

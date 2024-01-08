@@ -64,7 +64,7 @@ const Users = () => {
             },
             {
                 accessorKey: 'firstName',
-                header: 'First Name',
+                header: 'Имя',
                 mantineEditTextInputProps: {
                     type: 'text',
                     required: true,
@@ -80,7 +80,7 @@ const Users = () => {
             },
             {
                 accessorKey: 'lastName',
-                header: 'Last Name',
+                header: 'Фамилия',
                 mantineEditTextInputProps: {
                     type: 'text',
                     required: true,
@@ -96,7 +96,7 @@ const Users = () => {
             },
             {
                 accessorKey: 'middleName',
-                header: 'Middle Name',
+                header: 'Отчество',
                 mantineEditTextInputProps: {
                     type: 'text',
                     required: true,
@@ -112,7 +112,7 @@ const Users = () => {
             },
             {
                 accessorKey: 'role',
-                header: 'Role',
+                header: 'Роль',
                 mantineEditTextInputProps: {
                     type: 'text',
                     required: true,
@@ -173,15 +173,15 @@ const Users = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Role"
-                        placeholder="Pick value"
+                        label="Роль"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
             },
             {
                 accessorKey: 'createdAt',
-                header: 'Created At',
+                header: 'Отметка создания',
                 mantineEditTextInputProps: {
                     type: 'datetime-local',
                     required: true,
@@ -206,7 +206,7 @@ const Users = () => {
             },
             {
                 accessorKey: 'phone',
-                header: 'Phone',
+                header: 'Телефон',
                 mantineEditTextInputProps: {
                     type: 'text',
                     required: true,
@@ -335,7 +335,7 @@ const Users = () => {
         onEditingRowSave: handleSaveUser,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New User</Title>
+                <Title order={3}>Создать нового пользователя</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -382,7 +382,7 @@ const Users = () => {
                     // );
                 }}
             >
-                Create New User
+                Создать нового пользователя
             </Button>
         ),
         state: {

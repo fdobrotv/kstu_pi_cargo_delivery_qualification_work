@@ -155,8 +155,8 @@ const Ways = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Departure settlement"
-                        placeholder="Pick value"
+                        label="Место отправления"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -231,8 +231,8 @@ const Ways = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Destination settlement"
-                        placeholder="Pick value"
+                        label="Место прибытия"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -309,7 +309,7 @@ const Ways = () => {
 
                     return <MultiSelect onChange={onChange} onBlur={onBlur}
                         label="Выбор подмножества дорог"
-                        placeholder="Pick values"
+                        placeholder="Выберите значениеs"
                         searchable
                         nothingFound="Дорога не найдена"
                         data={data}
@@ -430,7 +430,7 @@ const Ways = () => {
         onEditingRowSave: handleSaveWay,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Way</Title>
+                <Title order={3}>Создать новый путь</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -477,7 +477,7 @@ const Ways = () => {
                     // );
                 }}
             >
-                Create New Way
+                Создать новый путь
             </Button>
         ),
         state: {

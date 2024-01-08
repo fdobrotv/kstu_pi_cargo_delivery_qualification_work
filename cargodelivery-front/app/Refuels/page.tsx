@@ -108,7 +108,7 @@ const Refuels = () => {
             },
             {
                 accessorKey: 'fuelStation',
-                header: 'Заправочная станция',
+                header: 'АЗС',
                 mantineEditTextInputProps: {
                     type: 'text',
                     required: true,
@@ -181,8 +181,8 @@ const Refuels = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="RefuelStation"
-                        placeholder="Pick value"
+                        label="АЗС"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -205,7 +205,7 @@ const Refuels = () => {
                 Cell: ({ cell }) =>  {
                     let car = cell.getValue<Car>();
                     return <Text>
-                      {car.plateNumber + " " + car.mark + " " + car.model}
+                      {car?.plateNumber + " " + car?.mark + " " + car?.model}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {
@@ -256,8 +256,8 @@ const Refuels = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Car"
-                        placeholder="Pick value"
+                        label="Машина"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -280,7 +280,7 @@ const Refuels = () => {
                 Cell: ({ cell }) =>  {
                     let driver = cell.getValue<Driver>();
                     return <Text>
-                      {driver.user.firstName + " " + driver.user.lastName + " " + driver.car.plateNumber}
+                      {driver.user.firstName + " " + driver.user.lastName}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {
@@ -299,7 +299,7 @@ const Refuels = () => {
                             return response.map( (driver: Driver) => {
                                 const items = {
                                     value: driver.id,
-                                    label: driver.user.firstName + " " + driver.user.lastName + " " + driver.car.plateNumber
+                                    label: driver.user.firstName + " " + driver.user.lastName
                                 }
                                 return items;
                             });
@@ -331,8 +331,8 @@ const Refuels = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Driver"
-                        placeholder="Pick value"
+                        label="Водитель"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -440,7 +440,7 @@ const Refuels = () => {
         onEditingRowSave: handleSaveRefuel,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Refuel</Title>
+                <Title order={3}>Создать новую заправку</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -487,7 +487,7 @@ const Refuels = () => {
                     // );
                 }}
             >
-                Create New Refuel
+                Создать новую заправку
             </Button>
         ),
         state: {

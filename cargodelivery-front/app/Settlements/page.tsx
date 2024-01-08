@@ -63,9 +63,9 @@ const Settlements = () => {
             },
             {
                 accessorKey: 'name',
-                header: 'Name',
+                header: 'Наименование',
                 mantineEditTextInputProps: {
-                    type: 'email',
+                    type: 'text',
                     required: true,
                     error: validationErrors?.name,
                     //remove any previous validation errors when settlement focuses on the input
@@ -123,12 +123,12 @@ const Settlements = () => {
 
                     return <>
                         <TextInput onChange={onLatitudeChange} onBlur={onBlur}
-                        label="Latitude"
-                        placeholder="Enter latitude value"
+                        label="Широта"
+                        placeholder="Введите значение широты"
                         />
                         <TextInput onChange={onLongitudeChange} onBlur={onBlur}
-                        label="Longitude"
-                        placeholder="Enter longitude value"
+                        label="Долгота"
+                        placeholder="Введите значение долготы"
                         />
                     </>;
                 },
@@ -241,7 +241,7 @@ const Settlements = () => {
         onEditingRowSave: handleSaveSettlement,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Settlement</Title>
+                <Title order={3}>Создать новый населённый пункт</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -283,7 +283,7 @@ const Settlements = () => {
                     // );
                 }}
             >
-                Create New Settlement
+                Создать новый населённый пункт
             </Button>
         ),
         state: {

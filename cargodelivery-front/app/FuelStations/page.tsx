@@ -140,12 +140,12 @@ const FuelStations = () => {
 
                     return <>
                         <TextInput onChange={onLatitudeChange} onBlur={onBlur}
-                        label="Latitude"
-                        placeholder="Enter latitude value"
+                        label="Широта"
+                        placeholder="Введите значение широты"
                         />
                         <TextInput onChange={onLongitudeChange} onBlur={onBlur}
-                        label="Longitude"
-                        placeholder="Enter longitude value"
+                        label="Долгота"
+                        placeholder="Введите значение долготы"
                         />
                     </>;
                 },
@@ -162,136 +162,6 @@ const FuelStations = () => {
                     //optionally add validation checking for onBlur or onChange
                 },
             },
-            // {
-            //     accessorKey: 'serviceClass',
-            //     header: 'Service class',
-            //     Edit: ({ cell, column, row, table }) => {
-            //         const data: Array<string> = Object.values(ServiceClass);
-            //         const onBlur = (event) => {
-            //           row._valuesCache[column.id] = event.target.value;
-            //           console.log("onBlur");
-            //             console.log(event);
-            //           if (isCreatingFuelStation) {
-            //             table.setCreatingRow(row);
-            //           } else if (isUpdatingFuelStation) {
-            //             table.setEditingRow(row);
-            //           }
-            //         };
-            //         const onChange = (event) => {
-            //             console.log("onChange");
-            //             console.log(event);
-            //         };
-            //         return <Select onChange={onChange} onBlur={onBlur}
-            //             label="FuelStation color"
-            //             placeholder="Pick value"
-            //             data={data}
-            //         />;
-            //     },
-            //     mantineEditTextInputProps: {
-            //         type: 'email',
-            //         required: true,
-            //         error: validationErrors?.name,
-            //         onFocus: () =>
-            //             setValidationErrors({
-            //                 ...validationErrors,
-            //                 name: undefined,
-            //             }),
-            //     },
-            // },
-            // {
-            //     accessorKey: 'pricePerNight',
-            //     header: 'Price per night',
-            //     mantineEditTextInputProps: {
-            //         type: 'number',
-            //         required: true,
-            //         error: validationErrors?.name,
-            //         //remove any previous validation errors when transfer focuses on the input
-            //         onFocus: () =>
-            //             setValidationErrors({
-            //                 ...validationErrors,
-            //                 name: undefined,
-            //             }),
-            //         //optionally add validation checking for onBlur or onChange
-            //     },
-            // },
-            // {
-            //     accessorKey: 'hotel',
-            //     header: 'Hotel',
-            //     Cell: ({ cell }) =>  {
-            //         let hotel = cell.getValue<Hotel>();
-            //         return <Text>
-            //           {hotel?.name + " " + hotel?.serviceClass + " " + hotel?.address + " " + "Гид "} 
-            //           {hotel?.isGuideIncluded ? "включён":"не включён"}
-            //         </Text>
-            //         },
-            //     Edit: ({ cell, column, row, table }) => {
-            //         interface Item {
-            //             value: string; 
-            //             label: string; 
-            //         }
-
-            //         const [data, setData] = useState<Array<Item>>([])
-            //         const [isLoading, setLoading] = useState(true)
-            //         const [selectedId, setSelectedId] = useState<UUID>()
-
-            //         useEffect(() => {
-            //             getHotels()
-            //             .then((response: Array<Hotel>) => {
-            //                 return response.map( (hotel: Hotel) => {
-            //                     const items = {
-            //                         value: hotel.id,
-            //                         label: hotel.name
-            //                     }
-            //                     return items;
-            //                 });
-            //             })
-            //             .then((data) => {
-            //                 setData(data)
-            //                 setLoading(false)
-            //             })
-            //         }, [])
-
-            //         const onBlur = (event) => {
-            //             const hTMLInputElement: HTMLInputElement = event.target;
-            //             console.log(hTMLInputElement);
-
-            //             // row._valuesCache[column.id] = hTMLInputElement.value;
-            //             row._valuesCache[column.id] = selectedId;
-            //             if (isCreatingFuelStation) {
-            //                 table.setCreatingRow(row);
-            //             } else if (isUpdatingFuelStation) {
-            //                 table.setEditingRow(row);
-            //             }
-            //         };
-
-            //         if (isLoading) return <p>Loading...</p>
-            //         if (!data) return <p>No car marks data</p>
-
-            //         const onChange = (event) => {
-            //             console.log("handleChange");
-            //             console.log(event);
-            //             setSelectedId(event);
-            //         }
-
-            //         return <Select onChange={onChange} onBlur={onBlur}
-            //             label="Hotel name"
-            //             placeholder="Pick value"
-            //             data={data}
-            //         />;
-            //     },
-            //     mantineEditTextInputProps: {
-            //         type: 'email',
-            //         required: true,
-            //         error: validationErrors?.name,
-            //         //remove any previous validation errors when car mark focuses on the input
-            //         onFocus: () =>
-            //             setValidationErrors({
-            //                 ...validationErrors,
-            //                 name: undefined,
-            //             }),
-            //         //optionally add validation checking for onBlur or onChange
-            //     },
-            // },
         ],
         [validationErrors],
     );
@@ -390,7 +260,7 @@ const FuelStations = () => {
         onEditingRowSave: handleSaveFuelStation,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New FuelStation</Title>
+                <Title order={3}>Создать новую АЗС</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -437,7 +307,7 @@ const FuelStations = () => {
                     // );
                 }}
             >
-                Create New FuelStation
+                Создать новую АЗС
             </Button>
         ),
         state: {

@@ -123,7 +123,7 @@ const Orders = () => {
 
                     return <Select onChange={onChange} onBlur={onBlur}
                         label="User first and last name"
-                        placeholder="Pick value"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -223,8 +223,8 @@ const Orders = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Departure settlement"
-                        placeholder="Pick value"
+                        label="Место отправления"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -299,8 +299,8 @@ const Orders = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Destination settlement"
-                        placeholder="Pick value"
+                        label="Место прибытия"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -468,7 +468,7 @@ const Orders = () => {
         onEditingRowSave: handleSaveOrder,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Order</Title>
+                <Title order={3}>Создать новый заказ</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -515,7 +515,7 @@ const Orders = () => {
                     // );
                 }}
             >
-                Create New Order
+                Создать новый заказ
             </Button>
         ),
         state: {

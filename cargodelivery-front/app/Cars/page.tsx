@@ -79,7 +79,7 @@ const Cars = () => {
             },
             {
                 accessorKey: 'mark',
-                header: 'Mark',
+                header: 'Марка',
                 Edit: ({ cell, column, row, table }) => {
                     interface Item {
                         value: string; 
@@ -130,8 +130,8 @@ const Cars = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur} //ref={ref}
-                        label="Car mark"
-                        placeholder="Pick value"
+                        label="Марка"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -150,7 +150,7 @@ const Cars = () => {
             },
             {
                 accessorKey: 'model',
-                header: 'Model',
+                header: 'Модель',
                 Edit: ({ cell, column, row, table }) => {
                     interface Item {
                         value: string; 
@@ -201,8 +201,8 @@ const Cars = () => {
                     }
 
                     return <Select onChange={onChange} onBlur={onBlur}
-                        label="Car model"
-                        placeholder="Pick value"
+                        label="Модель"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },
@@ -221,9 +221,9 @@ const Cars = () => {
             },
             {
                 accessorKey: 'plateNumber',
-                header: 'Plate Number',
+                header: 'Номерной знак',
                 mantineEditTextInputProps: {
-                    type: 'email',
+                    type: 'text',
                     required: true,
                     error: validationErrors?.name,
                     onFocus: () =>
@@ -235,7 +235,7 @@ const Cars = () => {
             },
             {
                 accessorKey: 'color',
-                header: 'Color',
+                header: 'Цвет',
                 Cell: ({ cell }) =>  {
                     let carColor = cell.getValue<CarColor>();
                     return <Text>
@@ -257,8 +257,8 @@ const Cars = () => {
                       }
                     };
                     return <Select onBlur = {onBlur}
-                        label="Car color"
-                        placeholder="Pick value"
+                        label="Цвет"
+                        placeholder="Выберите значение"
                         data={data}
                     />;
                 },

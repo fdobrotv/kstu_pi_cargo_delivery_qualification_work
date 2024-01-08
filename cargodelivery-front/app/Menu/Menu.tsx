@@ -30,7 +30,7 @@ import classes from './HeaderTabs.module.css';
 import { useRouter } from 'next/navigation'
 
 const user = {
-  name: 'Супер Менеджер',
+  name: 'Администратор системы',
   email: 'janspoon@fighter.dev',
   image: 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png',
 };
@@ -39,8 +39,8 @@ const tabs = [
   {key: 'Orders', value: 'Заказы'},
   {key: 'WorkSlots', value: 'Рабочие Слоты'},
   {key: 'Incidents', value: 'Инцидетны'},
-  {key: 'Refuels', value: 'Заправки'},
-  {key: 'FuelStations', value: 'Запровочные станции'},
+  {key: 'Refuels', value: 'Акты заправок'},
+  {key: 'FuelStations', value: 'АЗС'},
   {key: 'Ways', value: 'Пути'},
   {key: 'Roads', value: 'Дороги'},
   {key: 'Settlements', value: 'Населённые пункты'},
@@ -48,8 +48,8 @@ const tabs = [
   {key: 'Users', value: 'Пользователи'},
   {key: 'Roles', value: 'Роли'},
   {key: 'Cars', value: 'Машины'},
-  {key: 'CarMarks', value: 'Марки машин'},
   {key: 'CarModels', value: 'Модели машин'},
+  {key: 'CarMarks', value: 'Марки машин'},
 ];
 
 export function HeaderTabs() {

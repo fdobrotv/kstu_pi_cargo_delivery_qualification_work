@@ -222,10 +222,10 @@ const Roads = () => {
               
                       <div>
                         <Text size="xl" inline>
-                          Drag GPX file or click to select files
+                          Перетащите GPX файл или кликните для выбора файла
                         </Text>
                         <Text size="sm" color="dimmed" inline mt={7}>
-                          Attach one file, file size should not exceed 5mb
+                          Прикрепите один файл, размер файла не должен превышать 5 мб
                         </Text>
                       </div>
                     </Group>
@@ -328,7 +328,7 @@ const Roads = () => {
         onEditingRowSave: handleSaveRoad,
         renderCreateRowModalContent: ({ table, row, internalEditComponents }) => (
             <Stack>
-                <Title order={3}>Create New Road</Title>
+                <Title order={3}>Создать новую дорогу</Title>
                 {internalEditComponents}
                 <Flex justify="flex-end" mt="xl">
                     <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -375,7 +375,7 @@ const Roads = () => {
                     // );
                 }}
             >
-                Create New Road
+                Создать новую дорогу
             </Button>
         ),
         state: {
