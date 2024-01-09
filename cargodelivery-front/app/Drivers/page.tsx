@@ -157,7 +157,7 @@ const Drivers = () => {
                 Cell: ({ cell }) =>  {
                     let user = cell.getValue<User>();
                     return <Text>
-                      {user.firstName + " " + user.lastName + " " + user.middleName}
+                      {user?.firstName + " " + user?.lastName + " " + user?.middleName}
                     </Text>
                     },
                 Edit: ({ cell, column, row, table }) => {

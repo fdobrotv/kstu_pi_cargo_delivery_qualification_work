@@ -171,7 +171,7 @@ const Orders = () => {
                 Cell: ({ cell }) =>  {
                     let settlement = cell.getValue<Settlement>();
                     return <Text>
-                      {`${settlement.name}`} 
+                      {`${settlement?.name}`} 
                     </Text>
                 },
                 Edit: ({ cell, column, row, table }) => {
@@ -247,7 +247,7 @@ const Orders = () => {
                 Cell: ({ cell }) =>  {
                     let settlement = cell.getValue<Settlement>();
                     return <Text>
-                      {`${settlement.name}`} 
+                      {`${settlement?.name}`} 
                     </Text>
                 },
                 Edit: ({ cell, column, row, table }) => {
